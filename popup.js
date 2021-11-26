@@ -1,20 +1,22 @@
-let changeColor = document.getElementById('changeColor');
+const infoTrigger = document.querySelector('#info-trigger');
 
-chrome.storage.sync.get('color', ({ color }) => {
-  changeColor.style.backgroundColor = color;
-});
+const titleInput = document.querySelector('#title-input');
+const artistInput = document.querySelector('#artist-input');
+const albumInput = document.querySelector('#album-input');
 
-changeColor.addEventListener('click', async () => {
+infoTrigger.addEventListener('click', async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    function: setPageBackgroundColor,
+    function: getTrackInfo,
   });
 });
 
-const setPageBackgroundColor = () => {
-  chrome.storage.sync.get('color', ({ color }) => {
-    document.body.style.backgroundColor = color;
-  });
+const getTrackInfo = () => {
+  const trackInfo = document.querySelector('.videoOsdParentTitle').getInnerHTML();
+  const [artist, title] = trackInfo.split(' - ');
+  
+  alert(artist);
+  alert(title);
 }
