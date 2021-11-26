@@ -2,5 +2,5 @@
 	"name": "Emby Scrobbler",
 	"description": "It just scrobbles from emby",
 	"version": "1.0.0",
-	"manifest_version": 1
+	"manifest_version": 3
 }
